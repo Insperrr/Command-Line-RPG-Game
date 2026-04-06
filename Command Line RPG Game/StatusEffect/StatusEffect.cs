@@ -9,7 +9,7 @@ namespace Command_Line_RPG_Game.StatusEffect
 {
     internal abstract class StatusEffect
     {
-        public int Duration { get; set; }
+        public virtual int Duration { get; set; }
 
         public abstract StatusEffect ApplyEffect(Character target);
         public virtual StatusEffect RemoveEffect(Character target)

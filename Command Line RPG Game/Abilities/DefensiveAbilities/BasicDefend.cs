@@ -13,6 +13,7 @@ namespace Command_Line_RPG_Game.Abilities.DefensiveAbilities
         {
             user.Effects.Add(new BasicDefenceBoost().ApplyEffect(user));
             Console.WriteLine($"You brace yourself for the next attack, increasing your defence by 15.");
+            Console.WriteLine(user.Effects[0].Duration + "Duration");
         }
     }
 }
