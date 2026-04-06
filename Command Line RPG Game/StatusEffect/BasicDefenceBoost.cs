@@ -8,8 +8,7 @@ namespace Command_Line_RPG_Game.StatusEffect
     internal class BasicDefenceBoost : StatusEffect
     {
         public int DefenseBoost { get; set; } = 15;
-        public int Duration = 1;
-        public BasicDefenceBoost() { }
+        public int Duration = 2;
 
         public override StatusEffect ApplyEffect(Character target)
         {

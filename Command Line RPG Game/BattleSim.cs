@@ -87,8 +87,6 @@ namespace Command_Line_RPG_Game
                 turnOrder[i] = turnOrder[randomIndex];
                 turnOrder[randomIndex] = temp;
             }
-            Console.WriteLine("Turn Order: " + string.Join(" -> ", turnOrder.Select(i => $"Participant {i}")));
-            Console.WriteLine("\n");
             return turnOrder;
         }
 
@@ -128,6 +126,8 @@ namespace Command_Line_RPG_Game
 
         public void playerturn(Player player, Character[] allParticipants)
         {
+            player.UpdateEffects();
+            bool validAttack = false;
             Ability chosenAbility = player.ChooseAbility();
             Character chosenTarget = ChooseTarget(player, allParticipants);
             if (chosenAbility != null && chosenTarget != null)
@@ -138,8 +138,6 @@ namespace Command_Line_RPG_Game
             {
                 Console.WriteLine("Invalid choice, turn skipped.");
             }
-
-            player.UpdateEffects();
         }
 
         public void enemyturn(Character enemy, Player player, Character[] allParticipants)
