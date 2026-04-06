@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Command_Line_RPG_Game.Abilities
 {
     internal abstract class Ability
     {
-        public string Name { get; set; }
+        public virtual string Name => Regex.Replace(GetType().Name, "(\\B[A-Z])", " $1");
         public int Cooldown { get; set; } = 0;
+
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
 

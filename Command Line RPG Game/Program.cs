@@ -12,12 +12,14 @@ namespace Command_Line_RPG_Game
         public static void Main(string[] args)
         {
             Console.WriteLine("Enter Your Username: ");
-
-            // Will add error handling later 
             Player player = new Player(Console.ReadLine());
+
+
+            Console.Write("  ____   ___  __  __ __  __    _    _   _ ____  \r\n / ___| / _ \\|  \\/  |  \\/  |  / \\  | \\ | |  _ \\ \r\n| |    | | | | |\\/| | |\\/| | / _ \\ |  \\| | | | |\r\n| |___ | |_| | |  | | |  | |/ ___ \\| |\\  | |_| |\r\n \\____| \\___/|_|  |_|_|  |_/_/   \\_\\_| \\_|____/ \r\n\r\n _     ___ _   _ _____   ____  ____   ____ \r\n| |   |_ _| \\ | | ____| |  _ \\|  _ \\ / ___|\r\n| |    | ||  \\| |  _|   | |_) | |_) | |  _ \r\n| |___ | || |\\  | |___  |  _ <|  __/| |_| |\r\n|_____|___|_| \\_|_____| |_| \\_\\_|    \\____|\n \n \n");
+            // Will add error handling later 
             var enemy = new Enemy("Goblin", 50, 5, 5, [new BasicAttack()]);
             BattleSim battleSim = new BattleSim();
-            battleSim.battle(player, enemy);
+            battleSim.StartBattle(player, enemy);
         }
     }
 }

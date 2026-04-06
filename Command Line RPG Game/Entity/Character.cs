@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Command_Line_RPG_Game.StatusEffect;
+
 
 namespace Command_Line_RPG_Game.Entity
 {
@@ -13,7 +15,9 @@ namespace Command_Line_RPG_Game.Entity
         public int AttackPower { get; set; }
         public int MaxMana { get; set; } = 100;
         public int Mana { get; set; } = 100;
+        public int TemporaryDefence { get; set; } = 0;
         public List<Abilities.Ability> AbilityList { get; set; } = new List<Abilities.Ability>();
+        public List<StatusEffect.StatusEffect> Effects { get; set; } = new();
 
 
     }

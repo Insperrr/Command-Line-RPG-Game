@@ -12,8 +12,6 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
         protected int CalculateDamage(Character user, Character target)
         {
             int CalculatedDamage = (int)(user.AttackPower * Damage * (100.0 / (100 + target.Defence)));
-            Console.WriteLine(user.AttackPower);
-            Console.WriteLine(target.Defence);
             return Math.Max(CalculatedDamage, 1);
         }
         public override void UseAbility(Character user, Character target)
