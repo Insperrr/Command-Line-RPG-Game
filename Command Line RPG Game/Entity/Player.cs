@@ -22,20 +22,30 @@ namespace Command_Line_RPG_Game.Entity
         {
             Console.WriteLine("Choose ability:");
             for (int i = 0; i < AbilityList.Count; i++)
-                Console.WriteLine($"{i + 1}: {AbilityList[i].Name}");
-            Console.Write("(Press 5 to view Stats) \n");
+                Console.Write($"{i + 1}: {AbilityList[i].Name} || ");
+            Console.WriteLine();
+            Console.Write("(Press 5 to view Stats, 6 to view Ability Descriptions):    ");
 
             int choice = int.Parse(Console.ReadLine()) - 1;
             if (choice == 4)
             {
-                Console.WriteLine("\n Stats:");
+                Console.WriteLine("\nStats:");
                 Console.WriteLine($"Name: {Name}");
                 Console.WriteLine($"Health: {Health}/{MaxHealth}");
                 Console.WriteLine($"Attack Power: {AttackPower}");
-                Console.WriteLine($"Defence: {Defence}");
+                Console.WriteLine($"Defence: {Defence}\n\n");
                 return ChooseAbility();
             }
-
+            if (choice == 5)
+            {
+                Console.WriteLine("\nAbility Descriptions:");
+                for (int i = 0; i < AbilityList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}: {AbilityList[i].Name} - {AbilityList[i].Description}");
+                }
+                Console.WriteLine();
+                return ChooseAbility();
+            }
             if (choice < 0 || choice >= AbilityList.Count)
             {
                 Console.WriteLine("Invalid choice, try again.");
@@ -48,7 +58,5 @@ namespace Command_Line_RPG_Game.Entity
             }
             return AbilityList[choice];
         }
-
-    
     }
 }

@@ -24,10 +24,13 @@ namespace Command_Line_RPG_Game.Entity
             for (int i = Effects.Count - 1; i >= 0; i--)
             {
                 Effects[i].Duration--;
-                if (Effects[i].Duration <= 0)
+                if (Effects[i].Duration == 0)
                 {
                     Effects[i].RemoveEffect(this);
                     Effects.RemoveAt(i);
+                }
+                else if (Effects[i].Duration == -1)
+                {
                 }
             }
         }

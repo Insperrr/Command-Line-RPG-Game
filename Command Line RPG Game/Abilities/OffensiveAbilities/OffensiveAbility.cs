@@ -20,7 +20,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             target.Health -= damage;
             if (target.Health < 0) target.Health = 0;
 
-            Console.WriteLine($"{user.Name} uses {Name}, dealing {damage} damage to {target.Name}!");
+            Console.WriteLine($"{user.Name} uses {Name}, dealing {damage} damage to {target.Name}!\n");
 
             OnHitExtra(user, target);
         }

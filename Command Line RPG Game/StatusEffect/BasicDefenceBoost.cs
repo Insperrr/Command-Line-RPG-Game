@@ -7,7 +7,7 @@ namespace Command_Line_RPG_Game.StatusEffect
 {
     internal class BasicDefenceBoost : StatusEffect
     {
-        public int DefenseBoost { get; set; } = 10;
+        public int DefenseBoost { get; set; } = 25;
         public override int Duration { get; set; } = 1;
 
 

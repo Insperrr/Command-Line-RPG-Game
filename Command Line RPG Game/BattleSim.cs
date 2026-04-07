@@ -53,11 +53,13 @@ namespace Command_Line_RPG_Game
                     continue;
                 }
 
-                reportBattleStats(allParticipants);
+                Console.WriteLine($"--------------------------------" +
+                    $"\nTurn{turnIndex + 1}");
 
                 // Determine if it's the player's turn
                 if (currentParticipant == player)
                 {
+                    reportBattleStats(allParticipants);
                     playerturn(player, allParticipants);
                 }
                 else
@@ -92,15 +94,15 @@ namespace Command_Line_RPG_Game
 
         public void reportBattleStats(Character[] allParticipants)
         {
-            Console.WriteLine("-----------------------\nBattle Stats: \n" +
-                "-----------------------");
+            Console.WriteLine("\n=== Battle Status ===");
+
             foreach (Character participant in allParticipants)
             {
-                string status = participant.Health > 0 ? "Alive" : "Dead";
-                Console.WriteLine($"{participant.Name} - Health: {participant.Health}/{participant.MaxHealth} ({status})");
+                string status = participant.Health > 0 ? "" : " [DEAD]";
+                Console.WriteLine($"{participant.Name,-10} HP: {participant.Health}/{participant.MaxHealth}{status}");
             }
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("\n ");
+
+            Console.WriteLine();
         }
 
         public Character ChooseTarget(Character user, Character[] allParticipants)
@@ -153,7 +155,7 @@ namespace Command_Line_RPG_Game
             if (possibleTargets.Count == 0) return;
 
             Character target = possibleTargets[random.Next(possibleTargets.Count)];
-            if (!enemy.AbilityList[abilityIndex].Use(enemy, target))
+            if (!enemy.AbilityList[abilityIndex].Use(enemy, player))
             {
                 Console.WriteLine("Enemy's attack missed!");
             }

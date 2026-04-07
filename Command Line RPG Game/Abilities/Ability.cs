@@ -11,15 +11,21 @@ namespace Command_Line_RPG_Game.Abilities
     {
         public virtual string Name => Regex.Replace(GetType().Name, "(\\B[A-Z])", " $1");
         public virtual int Cooldown { get; set; } = 0;
-
+        public virtual string Description => "No description provided.";
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
+        
 
         public void ApplyCooldown()
         {
             CurrentCooldown = Cooldown;
         }
         public abstract void UseAbility(Character user, Character target);
+
+        protected virtual StatusEffect.StatusEffect CreateEffect()
+        {
+            return null;
+        }
         public bool Use(Character user, Character target)
         {
             if (!CheckConditionsValid(user))
