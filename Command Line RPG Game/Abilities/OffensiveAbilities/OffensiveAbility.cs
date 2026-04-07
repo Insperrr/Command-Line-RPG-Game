@@ -14,8 +14,11 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             int CalculatedDamage = (int)(user.AttackPower * Damage * (100.0 / (100 + target.Defence)));
             return Math.Max(CalculatedDamage, 1);
         }
-        public override void UseAbility(Character user, Character target)
+        public override void UseAbility(Character user, Character? target)
         {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target), "Target is required for offensive abilities.");
+            
             int damage = CalculateDamage(user, target);
             target.Health -= damage;
             if (target.Health < 0) target.Health = 0;

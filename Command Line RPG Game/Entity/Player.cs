@@ -7,6 +7,7 @@ namespace Command_Line_RPG_Game.Entity
 {
     internal class Player : Character
     {
+        public int Gold { get; set; } = 0;
         public Player(string name)
         {
             Name = name;

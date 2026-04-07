@@ -14,19 +14,21 @@ namespace Command_Line_RPG_Game.Abilities
         public virtual string Description => "No description provided.";
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
-        
+        public int AmountOfTargets { get; set; } = 1;
+        public string Rarity { get; set; } = "Common";
+
 
         public void ApplyCooldown()
         {
             CurrentCooldown = Cooldown;
         }
-        public abstract void UseAbility(Character user, Character target);
+        public abstract void UseAbility(Character user, Character? target);
 
         protected virtual StatusEffect.StatusEffect CreateEffect()
         {
             return null;
         }
-        public bool Use(Character user, Character target)
+        public bool Use(Character user, Character? target = null)
         {
             if (!CheckConditionsValid(user))
             {

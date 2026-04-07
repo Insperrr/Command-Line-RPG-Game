@@ -10,6 +10,8 @@ namespace Command_Line_RPG_Game
 {
     internal class BattleSim
     {
+        public int Level { get; set; } = 1;
+        public string Status { get; private set; } = "Not Started";
         public void StartBattle(Player player, params Character[] participants)
         {
             if (participants.Length < 1)
@@ -28,6 +30,7 @@ namespace Command_Line_RPG_Game
             Console.WriteLine($"Battle Start: {player.Name} vs " + string.Join(", ", participants.Select(p => p.Name)));
             Console.WriteLine("\n");
 
+            Status = "In Progress";
             BattleLoop(allParticipants);
 
         }
@@ -68,6 +71,16 @@ namespace Command_Line_RPG_Game
                 }
 
                 turnIndex++;
+            }
+            if (player.Health > 0)
+            {
+                Console.WriteLine("Congratulations! You won the battle!");
+                Status = "Player Won";
+            }
+            else
+            {
+                Console.WriteLine("You have been defeated. Better luck next time!");
+                Status = "Player Lost";
             }
         }
 
@@ -121,7 +134,6 @@ namespace Command_Line_RPG_Game
             }
             else
             {
-                Console.WriteLine("Invalid choice, turn skipped.");
                 return null;
             }
         }
@@ -130,16 +142,27 @@ namespace Command_Line_RPG_Game
         {
             player.UpdateEffects();
             player.UpdateAbilities();
-            bool validAttack = false;
-            Ability chosenAbility = player.ChooseAbility();
-            Character chosenTarget = ChooseTarget(player, allParticipants);
-            if (chosenAbility != null && chosenTarget != null)
+            while (true)
             {
-                chosenAbility.Use(player, chosenTarget);
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice, turn skipped.");
+                bool validInput = false;
+                Character chosenTarget = null;
+                Ability chosenAbility = player.ChooseAbility();
+                if (chosenAbility.AmountOfTargets > 0)
+                {
+                    chosenTarget = ChooseTarget(player, allParticipants);
+                    if (chosenTarget != null) validInput = true;
+
+                }
+                else
+                {
+                    validInput = true; // If the ability doesn't require a target, it's automatically valid
+                }
+                if (validInput)
+                {
+                    chosenAbility.Use(player, chosenTarget);
+                    break;
+                }
+                Console.WriteLine("Invalid ability or target. Please choose again.\n");
             }
         }
 
@@ -149,7 +172,7 @@ namespace Command_Line_RPG_Game
             // Simple AI for the enemy's turn
             Random random = new Random();
             int abilityIndex = random.Next(0, enemy.AbilityList.Count);
-            
+
             // Choose a random alive target that isn't itself
             List<Character> possibleTargets = allParticipants.Where(p => p != enemy && p.Health > 0).ToList();
             if (possibleTargets.Count == 0) return;

@@ -21,7 +21,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             get
             {
                 var preview = CreateEffect();
-                return $"A Basic Attack That deals 1 damage - CoolDown={CurrentCooldown}/{Cooldown}";
+                return $"A Basic Attack That deals 1 damage - No Cooldown";
             }
         }
     }

@@ -6,7 +6,7 @@ using Command_Line_RPG_Game.StatusEffect;
 
 namespace Command_Line_RPG_Game.Abilities.DefensiveAbilities
 {
-    internal class BasicDefend : Ability
+    internal class BasicDefend : DefencesiveAblility
     {
 
         public BasicDefend()
@@ -26,7 +26,7 @@ namespace Command_Line_RPG_Game.Abilities.DefensiveAbilities
         {
             return new BasicDefenceBoost();
         }
-        public override void UseAbility(Character user, Character target)
+        public override void UseAbility(Character user, Character? target)
         {
             BasicDefenceBoost defenceBoost = CreateEffect() as BasicDefenceBoost;
             if (defenceBoost == null) { throw new InvalidOperationException("Effect must be of type BasicDefenceBoost"); }
