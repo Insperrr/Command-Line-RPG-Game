@@ -19,6 +19,25 @@ namespace Command_Line_RPG_Game.Entity
         public List<Abilities.Ability> AbilityList { get; set; } = new List<Abilities.Ability>();
         public List<StatusEffect.StatusEffect> Effects { get; set; } = new();
 
+        public void UpdateEffects()
+        {
+            for (int i = Effects.Count - 1; i >= 0; i--)
+            {
+                Effects[i].Duration--;
+                if (Effects[i].Duration <= 0)
+                {
+                    Effects[i].RemoveEffect(this);
+                    Effects.RemoveAt(i);
+                }
+            }
+        }
 
+        public void UpdateAbilities()
+        {
+            foreach (var ability in AbilityList)
+            {
+                ability.UpdateCooldown();
+            }
+        }
     }
 }

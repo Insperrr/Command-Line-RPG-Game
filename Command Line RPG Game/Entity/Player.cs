@@ -41,20 +41,14 @@ namespace Command_Line_RPG_Game.Entity
                 Console.WriteLine("Invalid choice, try again.");
                 return ChooseAbility();
             }
+            if (AbilityList[choice].CurrentCooldown > 0)
+            {
+                Console.WriteLine("Ability is on cooldown, try again.");
+                return ChooseAbility();
+            }
             return AbilityList[choice];
         }
 
-        public void UpdateEffects()
-        {
-            for (int i = Effects.Count - 1; i >= 0; i--)
-            {
-                Effects[i].Duration--;
-                if (Effects[i].Duration <= 0)
-                {
-                Effects[i].RemoveEffect(this);
-                Effects.RemoveAt(i);
-                }
-            }
-        }
+    
     }
 }

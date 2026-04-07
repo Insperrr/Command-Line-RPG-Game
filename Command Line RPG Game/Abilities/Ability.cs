@@ -10,12 +10,15 @@ namespace Command_Line_RPG_Game.Abilities
     internal abstract class Ability
     {
         public virtual string Name => Regex.Replace(GetType().Name, "(\\B[A-Z])", " $1");
-        public int Cooldown { get; set; } = 0;
+        public virtual int Cooldown { get; set; } = 0;
 
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
 
-
+        public void ApplyCooldown()
+        {
+            CurrentCooldown = Cooldown;
+        }
         public abstract void UseAbility(Character user, Character target);
         public bool Use(Character user, Character target)
         {
@@ -23,6 +26,7 @@ namespace Command_Line_RPG_Game.Abilities
             {
                 return false;
             }
+            ApplyCooldown();
             UseAbility(user, target);
             return true;
         }
@@ -40,6 +44,14 @@ namespace Command_Line_RPG_Game.Abilities
                 return false;
             }
         return true;
+        }
+
+        public void UpdateCooldown()
+        {
+            if (CurrentCooldown > 0)
+            {
+                CurrentCooldown--;
+            }
         }
     }
 }

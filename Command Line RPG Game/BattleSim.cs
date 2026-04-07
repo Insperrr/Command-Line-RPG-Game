@@ -127,6 +127,7 @@ namespace Command_Line_RPG_Game
         public void playerturn(Player player, Character[] allParticipants)
         {
             player.UpdateEffects();
+            player.UpdateAbilities();
             bool validAttack = false;
             Ability chosenAbility = player.ChooseAbility();
             Character chosenTarget = ChooseTarget(player, allParticipants);
