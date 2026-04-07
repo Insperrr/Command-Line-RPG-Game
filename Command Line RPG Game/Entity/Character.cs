@@ -36,5 +36,11 @@ namespace Command_Line_RPG_Game.Entity
             AbilityList.Add(ability);
             OnTurnStart += ability.UpdateCooldown;
         }
+
+        public void TakeDamage(int amount)
+        {
+            Health -= amount;
+            if (Health < 0) Health = 0;
+        }
     }
 }

@@ -30,9 +30,7 @@ namespace Command_Line_RPG_Game.Abilities.DefensiveAbilities
         {
             BasicDefenceBoost defenceBoost = CreateEffect() as BasicDefenceBoost;
             if (defenceBoost == null) { throw new InvalidOperationException("Effect must be of type BasicDefenceBoost"); }
-            defenceBoost.ApplyEffect(user);
-            user.Effects.Add(defenceBoost);
-
+            user.ApplyStatusEffect(defenceBoost);
             Console.WriteLine($"You brace yourself, increasing defence by {defenceBoost.DefenseBoost}.");
         }
     }

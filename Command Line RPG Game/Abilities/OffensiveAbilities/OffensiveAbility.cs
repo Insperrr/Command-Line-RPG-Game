@@ -20,8 +20,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
                 throw new ArgumentNullException(nameof(target), "Target is required for offensive abilities.");
             
             int damage = CalculateDamage(user, target);
-            target.Health -= damage;
-            if (target.Health < 0) target.Health = 0;
+            target.TakeDamage(damage);
 
             Console.WriteLine($"{user.Name} uses {Name}, dealing {damage} damage to {target.Name}!\n");
 
