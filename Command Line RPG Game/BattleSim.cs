@@ -8,10 +8,17 @@ using System.Text;
 
 namespace Command_Line_RPG_Game
 {
+    enum BattleStatus
+    {
+        NotStarted,
+        InProgress,
+        PlayerWon,
+        PlayerLost
+    }
     internal class BattleSim
     {
         public int Level { get; set; } = 1;
-        public string Status { get; private set; } = "Not Started";
+        public BattleStatus Status { get; private set; } = BattleStatus.NotStarted;
         public void StartBattle(Player player, params Character[] participants)
         {
             if (participants.Length < 1)
@@ -30,7 +37,7 @@ namespace Command_Line_RPG_Game
             Console.WriteLine($"Battle Start: {player.Name} vs " + string.Join(", ", participants.Select(p => p.Name)));
             Console.WriteLine("\n");
 
-            Status = "In Progress";
+            Status = BattleStatus.InProgress;
             BattleLoop(allParticipants);
 
         }
@@ -75,12 +82,12 @@ namespace Command_Line_RPG_Game
             if (player.Health > 0)
             {
                 Console.WriteLine("Congratulations! You won the battle!");
-                Status = "Player Won";
+                Status = BattleStatus.PlayerWon;
             }
             else
             {
                 Console.WriteLine("You have been defeated. Better luck next time!");
-                Status = "Player Lost";
+                Status = BattleStatus.PlayerLost;
             }
         }
 

@@ -7,6 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace Command_Line_RPG_Game.Abilities
 {
+    enum RarityLevel
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
+    }
     internal abstract class Ability
     {
         public virtual string Name => Regex.Replace(GetType().Name, "(\\B[A-Z])", " $1");
@@ -15,7 +23,7 @@ namespace Command_Line_RPG_Game.Abilities
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
         public int AmountOfTargets { get; set; } = 1;
-        public string Rarity { get; set; } = "Common";
+        public RarityLevel Rarity { get; set; } = RarityLevel.Common;
 
 
         public void ApplyCooldown()
@@ -46,12 +54,12 @@ namespace Command_Line_RPG_Game.Abilities
                 Console.WriteLine($"{Name} is on cooldown for {CurrentCooldown} more turns.");
                 return false;
             }
-        else if (user.Mana < ManaCost)
+            else if (user.Mana < ManaCost)
             {
                 Console.WriteLine($"{user.Name} does not have enough mana to use {Name}.");
                 return false;
             }
-        return true;
+            return true;
         }
 
         public void UpdateCooldown()

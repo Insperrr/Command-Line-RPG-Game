@@ -21,7 +21,7 @@ namespace Command_Line_RPG_Game
             var enemy2 = new Enemy("Goblin2", 30, 2, 10, [new BasicAttack()]);
             BattleSim battleSim = new BattleSim();
             battleSim.StartBattle(player, enemy, enemy2);
-            if (battleSim.Status == "Player Won")
+            if (battleSim.Status == BattleStatus.PlayerWon)
             {
                 player.Gold += (battleSim.Level * 100);
             }
