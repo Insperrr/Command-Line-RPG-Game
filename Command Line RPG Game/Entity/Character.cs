@@ -18,29 +18,23 @@ namespace Command_Line_RPG_Game.Entity
         public int TemporaryDefence { get; set; } = 0;
         public List<Abilities.Ability> AbilityList { get; set; } = new List<Abilities.Ability>();
         public List<StatusEffect.StatusEffect> Effects { get; set; } = new();
-
-        public void UpdateEffects()
+        public event Action OnTurnStart;
+        public void StartTurn()
         {
-            for (int i = Effects.Count - 1; i >= 0; i--)
-            {
-                Effects[i].Duration--;
-                if (Effects[i].Duration == 0)
-                {
-                    Effects[i].RemoveEffect(this);
-                    Effects.RemoveAt(i);
-                }
-                else if (Effects[i].Duration == -1)
-                {
-                }
-            }
+            OnTurnStart?.Invoke(); 
+        }
+       
+
+        public void ApplyStatusEffect(StatusEffect.StatusEffect effect)
+        {
+            effect.ApplyEffect(this);
+            Effects.Add(effect); 
         }
 
-        public void UpdateAbilities()
+        public void AddAbility(Abilities.Ability ability)
         {
-            foreach (var ability in AbilityList)
-            {
-                ability.UpdateCooldown();
-            }
+            AbilityList.Add(ability);
+            OnTurnStart += ability.UpdateCooldown;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Command_Line_RPG_Game.Entity
     internal class Player : Character
     {
         public int Gold { get; set; } = 0;
+
         public Player(string name)
         {
             Name = name;
@@ -15,8 +16,8 @@ namespace Command_Line_RPG_Game.Entity
             Health = MaxHealth;
             Defence = 10;
             AttackPower = 10;
-            AbilityList.Add(new Abilities.OffensiveAbilities.BasicAttack());
-            AbilityList.Add(new Abilities.DefensiveAbilities.BasicDefend());
+            AddAbility(new Abilities.OffensiveAbilities.BasicAttack());
+            AddAbility(new Abilities.DefensiveAbilities.BasicDefend());
         }
 
         public Ability ChooseAbility()

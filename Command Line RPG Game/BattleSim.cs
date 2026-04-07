@@ -147,8 +147,7 @@ namespace Command_Line_RPG_Game
 
         public void playerturn(Player player, Character[] allParticipants)
         {
-            player.UpdateEffects();
-            player.UpdateAbilities();
+            player.StartTurn();
             while (true)
             {
                 bool validInput = false;

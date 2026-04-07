@@ -9,14 +9,35 @@ namespace Command_Line_RPG_Game.StatusEffect
 {
     internal abstract class StatusEffect
     {
-        public virtual int Duration { get; set; }
-
-        public abstract StatusEffect ApplyEffect(Character target);
-        public virtual StatusEffect RemoveEffect(Character target)
+        public virtual int Duration { get; set; } = 1;
+        protected Character Owner;
+        public virtual string Name { get; protected set; } = "Unnamed Status Effect";
+        public StatusEffect ApplyEffect(Character target)
         {
-            // Default implementation does nothing, can be overridden by specific status effects if needed
+            Owner = target;
+            Owner.OnTurnStart += UpdateEffect;
+            ApplyBuff(target);
             return this;
         }
+        public StatusEffect RemoveEffect()
+        {
+            Owner.OnTurnStart -= UpdateEffect;
+            RemoveBuff(Owner);
+            Owner.Effects.Remove(this);
+            return this;
+        }
+
+        public abstract void ApplyBuff(Character target);
+        public abstract void RemoveBuff(Character target);
+        public virtual void UpdateEffect()
+        {
+            Duration--;
+            if (Duration == 0)
+            {
+                RemoveEffect();
+            }
+        }
+
     }
 
 }

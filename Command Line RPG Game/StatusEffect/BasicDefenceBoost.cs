@@ -9,17 +9,16 @@ namespace Command_Line_RPG_Game.StatusEffect
     {
         public int DefenseBoost { get; set; } = 25;
         public override int Duration { get; set; } = 1;
+        protected Character Owner;
 
-
-        public override StatusEffect ApplyEffect(Character target)
+        public override void ApplyBuff(Character target)
         {
-            target.Defence += DefenseBoost;
-            return this;
+            Owner = target;
+            Owner.Defence += DefenseBoost;
         }
-        public override StatusEffect RemoveEffect(Character target)
+        public override void RemoveBuff(Character target)
         {
-            target.Defence -= DefenseBoost;
-            return this;
+            Owner.Defence -= DefenseBoost;
         }
-    }
+     }
 }
