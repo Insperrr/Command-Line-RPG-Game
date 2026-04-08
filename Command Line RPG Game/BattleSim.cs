@@ -17,7 +17,6 @@ namespace Command_Line_RPG_Game
     }
     internal class BattleSim
     {
-        public int Level { get; set; } = 1;
         public BattleStatus Status { get; private set; } = BattleStatus.NotStarted;
         public void StartBattle(Player player, params Character[] participants)
         {

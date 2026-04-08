@@ -9,7 +9,9 @@ namespace Command_Line_RPG_Game
 {
     internal class Game
     {
+        public int Level { get; set; } = 1;
         private Player player;
+        private bool HasStarted { get; set; } = false;
 
         public void Start()
         {
@@ -17,16 +19,56 @@ namespace Command_Line_RPG_Game
             Console.WriteLine("Prepare for an epic adventure!\n");
             
             
+            
+            while (true) 
+            {
+                GoToMainMenu();
+            }
+        }
+
+        public void StartNewGame()
+        {
             init();
-
-
-            //Console.Write("  ____   ___  __  __ __  __    _    _   _ ____  \r\n / ___| / _ \\|  \\/  |  \\/  |  / \\  | \\ | |  _ \\ \r\n| |    | | | | |\\/| | |\\/| | / _ \\ |  \\| | | | |\r\n| |___ | |_| | |  | | |  | |/ ___ \\| |\\  | |_| |\r\n \\____| \\___/|_|  |_|_|  |_/_/   \\_\\_| \\_|____/ \r\n\r\n _     ___ _   _ _____   ____  ____   ____ \r\n| |   |_ _| \\ | | ____| |  _ \\|  _ \\ / ___|\r\n| |    | ||  \\| |  _|   | |_) | |_) | |  _ \r\n| |___ | || |\\  | |___  |  _ <|  __/| |_| |\r\n|_____|___|_| \\_|_____| |_| \\_\\_|    \\____|\n \n \n");
+            Console.WriteLine($"Welcome, {player.Name}! Your adventure begins now.\n");
             var enemy = new Goblin(1);
             BattleSim battleSim = new BattleSim();
             battleSim.StartBattle(player, enemy);
-            if (battleSim.Status == BattleStatus.PlayerWon)
+        }
+        public void GoToMainMenu()
+        {
+            DisplayMainMenu();
+            GetMainMenuInput();
+        }
+        public void GetMainMenuInput()
+        {
+            string input = Console.ReadLine();
+            switch (input)
             {
-                player.Gold += (battleSim.Level * 100);
+                case "1":
+                    Console.WriteLine("Starting new game...");
+                    StartNewGame();
+                    HasStarted = true;
+                    break;
+
+                case "2":
+                    if (!HasStarted)
+                    {
+                        Console.WriteLine("No game to continue.\n");
+                        break;
+                    }
+
+                    Console.WriteLine("Continuing game...");
+                    // ContinueGame(); To Implement later
+                    break;
+
+                case "3":
+                    Console.WriteLine("Exiting game. Goodbye!");
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
 
@@ -42,6 +84,7 @@ namespace Command_Line_RPG_Game
         public void init()
         {
             CreatePlayer();
+            HasStarted = true;
         }
 
         private void CreatePlayer()
