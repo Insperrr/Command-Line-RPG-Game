@@ -12,14 +12,41 @@ namespace Command_Line_RPG_Game.Entity
         public Player(string name)
         {
             Name = name;
-            MaxHealth = 100;
-            Health = MaxHealth;
-            Defence = 10;
-            AttackPower = 10;
+            Level = 1;
+            LevelUpStats();
             AddAbility(new Abilities.OffensiveAbilities.BasicAttack());
             AddAbility(new Abilities.DefensiveAbilities.BasicDefend());
         }
+        
+        private void SetName()
+        {
+            Console.Write("Enter your character's name: ");
+            Name = Console.ReadLine();
+        }
+        private void LevelUp()
+        {
+            Level++;
+            Console.WriteLine($"\n{Colorize($"{Name} leveled up! Now Level {Level}", ConsoleColor.Green)}");
 
+            LevelUpStats();
+        }
+
+        private string Colorize(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ResetColor();
+            return "";
+        }
+
+        private void LevelUpStats()
+        {
+            MaxHealth = 100 + (Level - 1) * 10;
+            AttackPower = 10 + (Level - 1) * 2;
+            Defence = 10 + (int)((Level - 1) * 1.5);
+
+            Health = MaxHealth; // heal on level up
+        }
         public Ability ChooseAbility()
         {
             Console.WriteLine("Choose ability:");
