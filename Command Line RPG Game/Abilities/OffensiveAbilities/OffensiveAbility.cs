@@ -11,8 +11,13 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
 
         protected int CalculateDamage(Character user, Character target)
         {
-            int CalculatedDamage = (int)(user.AttackPower * Damage * (100.0 / (100 + target.Defence)));
-            return Math.Max(CalculatedDamage, 1);
+            // Use additive base for smoother numbers
+            double baseDamage = user.AttackPower + Damage;
+
+            // Apply defense scaling with diminishing returns
+            double scaledDamage = baseDamage * (100.0 / (100 + target.Defence));
+
+            return Math.Max((int)scaledDamage, 1); // minimum 1 damage
         }
         public override void UseAbility(Character user, Character? target)
         {
@@ -23,7 +28,6 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             target.TakeDamage(damage);
 
             Console.WriteLine($"{user.Name} uses {Name}, dealing {damage} damage to {target.Name}!\n");
-
             OnHitExtra(user, target);
         }
 

@@ -30,6 +30,11 @@ namespace Command_Line_RPG_Game.Abilities
         {
             CurrentCooldown = Cooldown;
         }
+        public void DeductMana(Character user)
+        {
+            user.Mana -= ManaCost;
+            if (user.Mana < 0) user.Mana = 0;
+        }
         public abstract void UseAbility(Character user, Character? target);
 
         protected virtual StatusEffect.StatusEffect CreateEffect()
@@ -43,6 +48,7 @@ namespace Command_Line_RPG_Game.Abilities
                 return false;
             }
             ApplyCooldown();
+            DeductMana(user);
             UseAbility(user, target);
             return true;
         }

@@ -13,7 +13,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
         { 
             Cooldown = 0;
             ManaCost = 0;
-            Damage = 1;
+            Damage = 10;
         }
 
         public override string Description

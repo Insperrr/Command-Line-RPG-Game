@@ -17,6 +17,7 @@ namespace Command_Line_RPG_Game.Entity
             LevelUpStats();
             AddAbility(new Abilities.OffensiveAbilities.BasicAttack());
             AddAbility(new Abilities.DefensiveAbilities.BasicDefend());
+            AddAbility(new Abilities.OffensiveAbilities.SmallFireball());
         }
 
         public void BattleWin()
@@ -81,13 +82,15 @@ namespace Command_Line_RPG_Game.Entity
             return "";
         }
 
-        private void LevelUpStats()
+        protected void LevelUpStats()
         {
-            MaxHealth = 100 + (Level - 1) * 10;
-            AttackPower = 10 + (Level - 1) * 2;
-            Defence = 10 + (int)((Level - 1) * 1.5);
-
-            Health = MaxHealth; // heal on level up
+            int level = Math.Max(1, Level); 
+            MaxHealth = 100 + (level - 1) * 10;       // +10 HP per level
+            Health = MaxHealth;                        // heal on level up
+            AttackPower = 15 + (level - 1) * 3;       // +3 AP per level
+            Defence = 10 + (level - 1) * 2;           // +2 DEF per level
+            MaxMana = 50 + (level - 1) * 5;
+            Mana = MaxMana;
         }
         public Ability ChooseAbility()
         {
@@ -104,6 +107,7 @@ namespace Command_Line_RPG_Game.Entity
                 Console.WriteLine($"Name: {Name}");
                 Console.WriteLine($"Health: {Health}/{MaxHealth}");
                 Console.WriteLine($"Attack Power: {AttackPower}");
+                Console.WriteLine($"Mana: {Mana}/{MaxMana}");
                 Console.WriteLine($"Defence: {Defence}\n\n");
                 return ChooseAbility();
             }
@@ -125,6 +129,11 @@ namespace Command_Line_RPG_Game.Entity
             if (AbilityList[choice].CurrentCooldown > 0)
             {
                 Console.WriteLine("Ability is on cooldown, try again.");
+                return ChooseAbility();
+            }
+            if (Mana < AbilityList[choice].ManaCost)
+            {
+                Console.WriteLine("Not enough mana, try again.");
                 return ChooseAbility();
             }
             return AbilityList[choice];

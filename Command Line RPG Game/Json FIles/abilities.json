@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Basic Attack",
+    "Type": "Offensive",
+    "Damage": 10,
+    "ManaCost": 0,
+    "Cooldown": 0
+  },
+  {
+    "Name": "Basic Defend",
+    "Type": "Defensive",
+    "DefenseBoost": 15,
+    "ManaCost": 5,
+    "Cooldown": 2,
+    "Duration": 1
+  }
+]

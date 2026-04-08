@@ -13,15 +13,10 @@ namespace Command_Line_RPG_Game.Entity.Enemies
 
         protected override void InitializeStats()
         {
-            int baseHealth = 40;
-            int baseAttack = 6;
-            int baseDefence = 5;
-
-            MaxHealth = baseHealth + (Level * 8);
-            AttackPower = baseAttack + (Level * 2);
-            Defence = baseDefence + (int)(Level * 1.2);
-
+            MaxHealth = 80 + (Level - 1) * 8;
             Health = MaxHealth;
+            AttackPower = 12 + (Level - 1) * 2;
+            Defence = 8 + (Level - 1) * 1;
         }
 
         protected override void InitializeAbilities()
