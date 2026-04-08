@@ -50,7 +50,7 @@ namespace Command_Line_RPG_Game
 
             Player player = (Player)allParticipants[0]; // Assuming player is always the first participant
 
-            while (allParticipants.Count(p => p.Health > 0) > 1)
+            while (allParticipants.Count(p => p.Health > 0) > 1 && player.Health > 0 )
             {
                 // Get next participant in turn order
                 int currentParticipantIndex = turnOrder[turnIndex % turnOrder.Count];
@@ -81,8 +81,8 @@ namespace Command_Line_RPG_Game
             }
             if (player.Health > 0)
             {
-                Console.WriteLine("Congratulations! You won the battle!");
                 Status = BattleStatus.PlayerWon;
+                player.BattleWin();
             }
             else
             {

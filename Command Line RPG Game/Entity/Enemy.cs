@@ -6,19 +6,18 @@ using System.Text;
 
 namespace Command_Line_RPG_Game.Entity
 {
-    internal class Enemy : Character
+    internal abstract class Enemy : Character
     {
-        public Enemy(string name, int level, int maxHealth, int attack, int defence, List<Ability> abilities)
+        public int Level { get; protected set; }
+
+        protected Enemy(int level)
         {
-            Name = name;
-            AbilityList = abilities;
-
             Level = level;
-
-            MaxHealth = 50 + (level * 10);
-            Health = MaxHealth;
-            AttackPower = 8 + (level * 2);
-            Defence = 8 + (int)(level * 1.5);
+            InitializeStats();
+            InitializeAbilities();
         }
+
+        protected abstract void InitializeStats();
+        protected abstract void InitializeAbilities();
     }
 }

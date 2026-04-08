@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Command_Line_RPG_Game.Abilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Command_Line_RPG_Game.Abilities;
+using System.Xml.Linq;
 
 namespace Command_Line_RPG_Game.Entity
 {
@@ -17,16 +18,49 @@ namespace Command_Line_RPG_Game.Entity
             AddAbility(new Abilities.OffensiveAbilities.BasicAttack());
             AddAbility(new Abilities.DefensiveAbilities.BasicDefend());
         }
-        
-        private void SetName()
+
+        public void BattleWin()
         {
-            Console.Write("Enter your character's name: ");
-            Name = Console.ReadLine();
+            Console.WriteLine($"\n{Colorize($"{Name} won the battle!", ConsoleColor.Green)}");
+            Gold += (Level * 100);
+            Console.WriteLine($"\n{Colorize($"{Name} gained {Gold} Gold!", ConsoleColor.Yellow)}");
+            LevelUp();
+        }   
+
+        public void SetName()
+        {
+            while (true)
+            {
+                Console.Write("Enter Your Username: ");
+                Name = Console.ReadLine();
+
+                // Validation checks
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    Console.WriteLine("Name cannot be empty. Try again.\n");
+                    continue;
+                }
+
+                if (Name.Length < 3)
+                {
+                    Console.WriteLine("Name must be at least 3 characters long.\n");
+                    continue;
+                }
+
+                if (Name.Length > 15)
+                {
+                    Console.WriteLine("Name must be 15 characters or less.\n");
+                    continue;
+                }
+
+                break;
+            }
         }
+
         private void LevelUp()
         {
             Level++;
-            Console.WriteLine($"\n{Colorize($"{Name} leveled up! Now Level {Level}", ConsoleColor.Green)}");
+            Console.WriteLine($"{Colorize($"{Name} leveled up! Now Level {Level}", ConsoleColor.Green)}");
 
             LevelUpStats();
         }
@@ -34,7 +68,7 @@ namespace Command_Line_RPG_Game.Entity
         private string Colorize(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine(text);
+            Console.Write(text);
             Console.ResetColor();
             return "";
         }
