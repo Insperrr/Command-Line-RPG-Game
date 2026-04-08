@@ -81,7 +81,6 @@ namespace Command_Line_RPG_Game
             if (player.Health > 0)
             {
                 Status = BattleStatus.PlayerWon;
-                player.BattleWin();
             }
             else
             {

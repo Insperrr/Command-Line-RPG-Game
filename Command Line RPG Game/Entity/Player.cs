@@ -23,10 +23,18 @@ namespace Command_Line_RPG_Game.Entity
         {
             Console.WriteLine($"\n{Colorize($"{Name} won the battle!", ConsoleColor.Green)}");
             Gold += (Level * 100);
-            Console.WriteLine($"\n{Colorize($"{Name} gained {Gold} Gold!", ConsoleColor.Yellow)}");
+            Console.WriteLine($"\n{Colorize($"{Name} gained {Gold} Gold!", ConsoleColor.Yellow)}\n");
             LevelUp();
         }   
-
+        public void ResetStats()
+        {
+            Health = MaxHealth;
+            Mana = MaxMana;
+            TemporaryDefence = 0;
+            Effects.Clear();
+            foreach (var ability in AbilityList)
+                ability.CurrentCooldown = 0;
+        }
         public void SetName()
         {
             while (true)

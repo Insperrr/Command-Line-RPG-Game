@@ -17,27 +17,44 @@ namespace Command_Line_RPG_Game
         {
             Console.WriteLine("Welcome to the Command Line RPG Game!");
             Console.WriteLine("Prepare for an epic adventure!\n");
-            
-            
-            
             while (true) 
             {
                 GoToMainMenu();
             }
         }
-
-        public void StartNewGame()
-        {
-            init();
-            Console.WriteLine($"Welcome, {player.Name}! Your adventure begins now.\n");
-            var enemy = new Goblin(1);
-            BattleSim battleSim = new BattleSim();
-            battleSim.StartBattle(player, enemy);
-        }
         public void GoToMainMenu()
         {
             DisplayMainMenu();
             GetMainMenuInput();
+        }
+        public void StartLevel()
+        {
+            Console.WriteLine($"\n=== Level {Level} ===\n");
+
+            // Spawn enemies based on level
+            Level level = LevelFactory.GetLevel(Level);
+            Character[] enemies = level.Enemies.ToArray();
+
+            // Start the battle
+            BattleSim battleSim = new BattleSim();
+            battleSim.StartBattle(player, enemies);
+
+            if (battleSim.Status == BattleStatus.PlayerWon)
+            {
+                player.BattleWin();
+            }
+            else
+            {
+                Console.WriteLine("Game Over! Better luck next time.\n");
+                HasStarted = false;
+            }
+
+        }
+        public void StartNewGame()
+        {
+            player = new Player("Hero");
+            player.SetName();
+            Console.WriteLine($"Welcome, {player.Name}! Your adventure begins now.\n");
         }
         public void GetMainMenuInput()
         {
@@ -46,8 +63,11 @@ namespace Command_Line_RPG_Game
             {
                 case "1":
                     Console.WriteLine("Starting new game...");
-                    StartNewGame();
                     HasStarted = true;
+                    Level = 1;
+                    StartNewGame();
+                    StartLevel();
+                    Level++;
                     break;
 
                 case "2":
@@ -58,7 +78,9 @@ namespace Command_Line_RPG_Game
                     }
 
                     Console.WriteLine("Continuing game...");
-                    // ContinueGame(); To Implement later
+                    player.ResetStats();
+                    StartLevel();
+                    Level++;
                     break;
 
                 case "3":
@@ -76,7 +98,7 @@ namespace Command_Line_RPG_Game
         {
             Console.WriteLine("Main Menu:");
             Console.WriteLine("1. Start New Game");
-            Console.WriteLine("2. Load Game");
+            Console.WriteLine(HasStarted ? "2. Continue" : "2. Continue (Locked)");
             Console.WriteLine("3. Exit");
             Console.Write("Select an option: ");
         }
