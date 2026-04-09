@@ -10,8 +10,13 @@ namespace Command_Line_RPG_Game.StatusEffect
     internal abstract class StatusEffect
     {
         public virtual int Duration { get; set; } = 1;
+        public virtual int Value { get; set; } = 0;
         protected Character Owner;
         public virtual string Name { get; protected set; } = "Unnamed Status Effect";
+        public virtual string GetDescription()
+        {
+            return $"{Name} (Duration: {Duration})";
+        }
         public StatusEffect ApplyEffect(Character target)
         {
             Owner = target;

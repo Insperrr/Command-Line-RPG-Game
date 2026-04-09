@@ -14,15 +14,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             Cooldown = 0;
             ManaCost = 0;
             Damage = 10;
-        }
-
-        public override string Description
-        {
-            get
-            {
-                var preview = CreateEffect();
-                return $"A Basic Attack That deals 1 damage - No Cooldown";
-            }
+            AbilityDescription = "A basic attack that deals 10 damage";
         }
     }
 }

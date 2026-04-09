@@ -1,4 +1,5 @@
 ﻿using Command_Line_RPG_Game.Entity;
+using Command_Line_RPG_Game.StatusEffect;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
@@ -19,13 +20,30 @@ namespace Command_Line_RPG_Game.Abilities
     {
         public virtual string Name => Regex.Replace(GetType().Name, "(\\B[A-Z])", " $1");
         public virtual int Cooldown { get; set; } = 0;
-        public virtual string Description => "No description provided.";
         public int CurrentCooldown { get; set; } = 0;
         public int ManaCost { get; set; } = 0;
         public int AmountOfTargets { get; set; } = 1;
         public RarityLevel Rarity { get; set; } = RarityLevel.Common;
+        public string EffectId { get; set; }
+        public string AbilityDescription { get; set; } = "No description";
 
-
+        public StatusEffect.StatusEffect? GetEffect()
+        {
+            if (EffectId == null) return null;
+            return StatusEffectFactory.CreateEffect(EffectId);
+        }
+        public virtual string Description
+        {
+            get
+            {
+                var effect = GetEffect();
+                string abilityDescription = effect != null ? effect.GetDescription() : AbilityDescription;
+                string fullstring = Cooldown == 0 ? $"{Name}: {abilityDescription} - No Cooldown" : 
+                    $"{Name}: {abilityDescription} - Cooldown: {CurrentCooldown}/{Cooldown}";
+                fullstring += ManaCost > 0 ? $" - Mana Cost: {ManaCost}" : "";
+                return fullstring;
+            }
+        }
         public void ApplyCooldown()
         {
             CurrentCooldown = Cooldown;
@@ -36,11 +54,6 @@ namespace Command_Line_RPG_Game.Abilities
             if (user.Mana < 0) user.Mana = 0;
         }
         public abstract void UseAbility(Character user, Character? target);
-
-        protected virtual StatusEffect.StatusEffect CreateEffect()
-        {
-            return null;
-        }
         public bool Use(Character user, Character? target = null)
         {
             if (!CheckConditionsValid(user))

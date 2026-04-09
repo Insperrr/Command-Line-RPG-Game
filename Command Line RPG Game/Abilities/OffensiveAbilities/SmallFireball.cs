@@ -14,15 +14,7 @@ namespace Command_Line_RPG_Game.Abilities.OffensiveAbilities
             Cooldown = 0;
             ManaCost = 25;
             Damage = 5;
-        }
-
-        public override string Description
-        {
-            get
-            {
-                var preview = CreateEffect();
-                return $"A small fireball that does 25 damage.";
-            }
+            AbilityDescription = "A small fireball that does 25 damage.";
         }
     }
 }

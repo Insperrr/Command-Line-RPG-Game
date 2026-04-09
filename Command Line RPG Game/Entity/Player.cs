@@ -116,7 +116,7 @@ namespace Command_Line_RPG_Game.Entity
                 Console.WriteLine("\nAbility Descriptions:");
                 for (int i = 0; i < AbilityList.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}: {AbilityList[i].Name} - {AbilityList[i].Description}");
+                    Console.WriteLine($"{i + 1}: {AbilityList[i].Description}");
                 }
                 Console.WriteLine();
                 return ChooseAbility();

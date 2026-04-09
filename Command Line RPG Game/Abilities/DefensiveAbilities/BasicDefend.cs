@@ -12,26 +12,16 @@ namespace Command_Line_RPG_Game.Abilities.DefensiveAbilities
         public BasicDefend()
         {
             Cooldown = 2;
-        }
-        public override string Description
-        {
-            get
-            {
-                var preview = CreateEffect();
-                return $"Increase defence by {((BasicDefenceBoost)preview).DefenseBoost} " +
-                       $"- Cooldown: {CurrentCooldown}/{Cooldown} - Duration: {preview.Duration}";
-            }
-        }
-        protected override StatusEffect.StatusEffect CreateEffect()
-        {
-            return new BasicDefenceBoost();
+            EffectId = "BasicDefenceBoost";
         }
         public override void UseAbility(Character user, Character? target)
         {
-            BasicDefenceBoost defenceBoost = CreateEffect() as BasicDefenceBoost;
-            if (defenceBoost == null) { throw new InvalidOperationException("Effect must be of type BasicDefenceBoost"); }
-            user.ApplyStatusEffect(defenceBoost);
-            Console.WriteLine($"You brace yourself, increasing defence by {defenceBoost.DefenseBoost}.");
+            var effect = GetEffect();
+            if (effect != null)
+            {
+                user.ApplyStatusEffect(effect);
+                Console.WriteLine($"You brace yourself, increasing defence by {((BasicDefenceBoost)effect).DefenseBoost}.");
+            }
         }
     }
 }

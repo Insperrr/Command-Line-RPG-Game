@@ -8,7 +8,6 @@ namespace Command_Line_RPG_Game.Entity
 {
     internal abstract class Enemy : Character
     {
-        public int Level { get; protected set; }
 
         protected Enemy(int level)
         {

@@ -117,9 +117,13 @@ namespace Command_Line_RPG_Game
             foreach (Character participant in allParticipants)
             {
                 string status = participant.Health > 0 ? "" : " [DEAD]";
-                Console.WriteLine($"{participant.Name,-10} HP: {participant.Health}/{participant.MaxHealth}{status}");
-            }
+                Console.WriteLine($"{participant.Name,-10} HP: {participant.Health}/{participant.MaxHealth,-10}{status}");
 
+                if (participant.GetType() == typeof(Player))
+                {
+                    Console.WriteLine($"{new string(' ', 10)} Mana: {participant.Mana}/{participant.MaxMana}");
+                }
+            }
             Console.WriteLine();
         }
 
